@@ -1,8 +1,8 @@
 name: rest_router
-description: A new Flutter package.
+description: A simple flutter router that parses path parameters.
 version: 0.0.1
-author:
-homepage:
+author: Dennis Krasnov <dennis@krasnov.dev>
+homepage: https://github.com/Dennis-Krasnov/Flutter-Rest-Router
 
 environment:
   sdk: ">=2.1.0 <3.0.0"

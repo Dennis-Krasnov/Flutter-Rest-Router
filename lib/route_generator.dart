@@ -7,7 +7,7 @@ import 'package:rest_router/rest_navigator.dart';
 typedef Widget HandlerFunc(BuildContext context, Map<String, List<String>> parameters);
 
 class Router {
-  final _unknownRoute = "__UKNOWN_ROUTE__";
+  static final unknownRoute = "__UKNOWN_ROUTE__";
 
   /// Path with variables -> widget builders
   /// eg. {"days/:day": (BuildContext context, Map<String, List<String>> parameters) => Container()}
@@ -17,9 +17,10 @@ class Router {
   final HandlerFunc onUnknownRouteHandler;
 
   Router(this.pathHandlers, {@required this.onUnknownRouteHandler}) {
-    pathHandlers[_unknownRoute] = onUnknownRouteHandler;
+    pathHandlers[unknownRoute] = onUnknownRouteHandler;
   }
 
+  /// Helper to find a single path handler with matching path parameters.
   bool _matchPathHandler(List<String> parts, String handlerPath) {
     // Sections of handler URL separated by slashes
     final handlerParts = handlerPath.split("/");
@@ -48,25 +49,35 @@ class Router {
     // Defaults to no transition, may throw cast error
     final transitionType = routeSettings.arguments as TransitionType ?? TransitionType.none;
 
-    // TODO: use arguments for completer??? - no other way to get equivalent to pop returns (complete it on didPop?!) (ensure only that one page gets it)
-
     // Sections of URL separated by slashes
     final parts = routeSettings.name.split("/");
 
     // Find corresponding path handler
     // Fails if multiple handlers found
     // Defaults to [onUnknownRouteHandler] if no handlers found
-    final handlerPath = pathHandlers.keys.singleWhere((handlerPath) => _matchPathHandler(parts, handlerPath), orElse: () => _unknownRoute);
+    final handlerPath = pathHandlers.keys.singleWhere((handlerPath) => _matchPathHandler(parts, handlerPath), orElse: () => unknownRoute);
 
     // Parsed parameters and their values
     final parameters = parsePathParameters(handlerPath, routeSettings.name);
 
-    // TODO: switch by transition type
-
-    // Animation
-    return MaterialPageRoute<dynamic>(
-      settings: routeSettings,
-      builder: (BuildContext context) => pathHandlers[handlerPath](context, parameters)
-    );
+    // Navigate to the route
+    switch(transitionType) {
+      // Animation
+      case TransitionType.native:
+        return MaterialPageRoute<dynamic>(
+          settings: routeSettings,
+          builder: (BuildContext context) => pathHandlers[handlerPath](context, parameters),
+        );
+        break;
+      // Instant
+      case TransitionType.none:
+        return NoAnimationMaterialPageRoute(
+          settings: routeSettings,
+          builder: (BuildContext context) => pathHandlers[handlerPath](context, parameters),
+        );
+        break;
+      default:
+        throw UnimplementedError("Invalid transition type: $transitionType");
+    }
   }
 }

@@ -33,15 +33,15 @@ class HomePage extends StatelessWidget {
           children: <Widget>[
             RaisedButton(
               child: Text("Item list"),
-              onPressed: () => Navigator.of(context).pushNamed("/items"),
+              onPressed: () => Navigator.of(context).pushNamed("/items", arguments: TransitionType.native),
             ),
             RaisedButton(
               child: Text("Run /plus_two/40"),
-              onPressed: () => Navigator.of(context).pushNamed("/plus_two/40"),
+              onPressed: () => Navigator.of(context).pushNamed("/plus_two/40", arguments: TransitionType.native),
             ),
             RaisedButton(
               child: Text("Invalid path"),
-              onPressed: () => Navigator.of(context).pushNamed("/itemz"),
+              onPressed: () => Navigator.of(context).pushNamed("/itemz"), // Defaults to instant transition
             ),
           ],
         ),

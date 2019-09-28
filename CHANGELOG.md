@@ -1,3 +1,6 @@
-## [0.0.1] - TODO: Add release date.
+## [0.0.1]
 
-* TODO: Describe initial release.
+* Created basic router for flutter.
+* Added native and no route transitions.
+* Added simple path parameter parsing.
+* Tested widgets and parser.

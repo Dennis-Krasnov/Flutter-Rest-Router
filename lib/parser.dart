@@ -1,14 +1,27 @@
 // TODO: rename something more descriptive, place under router?
+import 'package:rest_router/rest_navigator.dart';
+
 final handlerPathKey = "__HANDLER_PATH__";
 final urlPathKey = "__PATH__";
 
 /// Extracts path variables from a [url] given the [handlerPath].
 Map<String, List<String>> parsePathParameters(String handlerPath, String url) {
+  // Don't parse unknown routes
+  if (handlerPath == Router.unknownRoute) {
+    return <String, List<String>>{
+      handlerPathKey: [handlerPath],
+      urlPathKey: [url]
+    };
+  }
+
   // Sections of handler URL separated by slashes
   final handlerParts = handlerPath.split("/");
 
   // Sections of URL separated by slashes
   final parts = url.split("/");
+
+  print("HALDER: $handlerPath");
+  print("URL: $url");
 
   if (parts.length != handlerParts.length) {
     throw ArgumentError("Part count didn't match");

@@ -36,7 +36,7 @@ void main() {
       );
     });
 
-    // TODO: extract ?var=value&another=value2 variables as well!
+    // TODO: extract variables such as ?var=value&another=value2 as well!
   });
 
   group("Fail to parse malformed URLs", () {
