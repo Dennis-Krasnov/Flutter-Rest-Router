@@ -17,10 +17,10 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   final router = Router({
-    "/": (BuildContext context, Map<String, List<String>> parameters) => HomePage(),
-    "/items": (BuildContext context, Map<String, List<String>> parameters) => SubPage("path is /items"),
-    "/plus_two/:num": (BuildContext context, Map<String, List<String>> parameters) => SubPage("sum is ${int.parse(parameters["num"]?.first) + 2}"),
-  }, onUnknownRouteHandler: (BuildContext context, Map<String, List<String>> parameters) => SubPage("${parameters[urlPathKey]?.first} is 404"));
+    "/": (BuildContext context, parameters) => HomePage(),
+    "/items": (BuildContext context, parameters) => SubPage("path is /items"),
+    "/plus_two/:num": (BuildContext context, parameters) => SubPage("sum is ${int.parse(parameters["num"]?.first) + 2}"),
+  }, onUnknownRouteHandler: (BuildContext context, parameters) => SubPage("${parameters[urlPathKey]?.first} is 404"));
 
   @override
   Widget build(BuildContext context) {
@@ -76,6 +76,7 @@ class SubPage extends StatelessWidget {
 }
 ```
 
+Parameters is a `Map<String, List<String>>` to allow multiple variables of the same name.
 
 Note you have specify `arguments: TransitionType.native` to achieve native transitions. The rationale is that this is better for a deep-link powered app. Feel free to fork this project to make opiniated changes.
 

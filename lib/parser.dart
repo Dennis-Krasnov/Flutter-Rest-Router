@@ -5,6 +5,7 @@ final handlerPathKey = "__HANDLER_PATH__";
 final urlPathKey = "__PATH__";
 
 /// Extracts path variables from a [url] given the [handlerPath].
+/// After creating this, I realized https://github.com/peterzagoranski/flutter_router implemented this better.
 Map<String, List<String>> parsePathParameters(String handlerPath, String url) {
   // Don't parse unknown routes
   if (handlerPath == Router.unknownRoute) {
@@ -19,9 +20,6 @@ Map<String, List<String>> parsePathParameters(String handlerPath, String url) {
 
   // Sections of URL separated by slashes
   final parts = url.split("/");
-
-  print("HALDER: $handlerPath");
-  print("URL: $url");
 
   if (parts.length != handlerParts.length) {
     throw ArgumentError("Part count didn't match");

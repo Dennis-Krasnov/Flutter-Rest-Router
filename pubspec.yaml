@@ -1,6 +1,6 @@
 name: rest_router
-description: A simple flutter router that parses path parameters.
-version: 0.0.1
+description: A simple flutter router that parses path parameters and exposes a builder to use them inline.
+version: 0.1.0
 author: Dennis Krasnov <dennis@krasnov.dev>
 homepage: https://github.com/Dennis-Krasnov/Flutter-Rest-Router
 

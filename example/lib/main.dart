@@ -6,10 +6,10 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   final router = Router({
-    "/": (BuildContext context, Map<String, List<String>> parameters) => HomePage(),
-    "/items": (BuildContext context, Map<String, List<String>> parameters) => SubPage("path is /items"),
-    "/plus_two/:num": (BuildContext context, Map<String, List<String>> parameters) => SubPage("sum is ${int.parse(parameters["num"]?.first) + 2}"),
-  }, onUnknownRouteHandler: (BuildContext context, Map<String, List<String>> parameters) => SubPage("${parameters[urlPathKey]?.first} is 404"));
+    "/": (BuildContext context, parameters) => HomePage(),
+    "/items": (BuildContext context, parameters) => SubPage("path is /items"),
+    "/plus_two/:num": (BuildContext context, parameters) => SubPage("sum is ${int.parse(parameters["num"]?.first) + 2}"),
+  }, onUnknownRouteHandler: (BuildContext context, parameters) => SubPage("${parameters[urlPathKey]?.first} is 404"));
 
   @override
   Widget build(BuildContext context) {
