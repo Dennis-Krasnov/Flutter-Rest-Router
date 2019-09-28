@@ -1,0 +1,4 @@
+enum TransitionType {
+  native,
+  none,
+}
